@@ -1,0 +1,13 @@
+fdisk /dev/sdb
+vgcreate name /dev/sdb1
+lvcreate -L 20G -n lvname vgname
+mkfs.xfs /dev/vgname/lvname
+vim /ect/fstab
+mount -a mount
+vg/lvextend  vgname /dev/sdc2
+vgextend -L +8G /dev/vgname/lvname
+
+systemctl status httpd
+firewall-cmd --permanent --add-service=http 
+setenforce 0
+getenforce
